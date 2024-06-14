@@ -41,7 +41,7 @@ namespace eCommerceWeb
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Seller}/{action=Index}/{id?}");
+                pattern: "{controller=Sellers}/{action=Index}/{id?}");
 
             AppDbInitializer.Seed(app);
 

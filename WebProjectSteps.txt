@@ -56,4 +56,7 @@ Views
 	Seller views
 	Brand views
 
+Controller and Views
+	ProductsController
+
 

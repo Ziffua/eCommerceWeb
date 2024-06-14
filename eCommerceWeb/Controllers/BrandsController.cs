@@ -7,10 +7,10 @@ using eCommerceWeb.Models;
 
 namespace eCommerceWeb.Controllers
 {
-    public class BrandController : Controller
+    public class BrandsController : Controller
     {
         private readonly IBrandService _service;
-        public BrandController(IBrandService service)
+        public BrandsController(IBrandService service)
         {
             _service = service;
         }

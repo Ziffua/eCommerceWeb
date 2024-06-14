@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eCommerceWeb.Controllers
 {
-    public class SellerController : Controller
+    public class SellersController : Controller
     {
         //Service for the CRUD operation methods of the model
         private readonly ISellerService _service;
-        public SellerController(ISellerService service)
+        public SellersController(ISellerService service)
         {
             _service = service;
         }
