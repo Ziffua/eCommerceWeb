@@ -1,0 +1,59 @@
+
+EntityFramework packages
+. Microsoft.EntityFrameworkCore
+. Microsoft.EntityFrameworkCore.SqlServer
+. Microsoft.EntityFrameworkCore.Design
+. Microsoft.EntityFrameworkCore.Tools
+
+Models
+
+Relations
+
+Create DbContext
+
+appsettings.json -> define connection string
+
+Dependency injection in Program.cs
+
+PM> add-migration Initial
+PM> update-database -verbose
+
+Controllers -> add -> controller
+
+Controller -> Index -> Add view
+
+Data/Base
+	IEntityBase
+	IEntityBaseRepository
+	EntityBaseRepository
+
+Data/Interfaces
+	IBrandService
+	IProductService
+	ISellerService
+inheritance from IEntityBaseRepository<~Brand>
+
+Data/Services
+	BrandService
+	ProductService
+	SellerService
+inheritance from EntityBaseRepository<~Brand>, ~IBrandService
+
+Program.cs
+Register Services
+builder.Services.AddScoped<interface, service>();
+
+Controllers
+	SellerController
+		Create -> HttpPost -> if(!ModelState.isValid) return View();
+		HttpGet -> if (model == null) return View("NotFound"); HttpPost -> if (!ModelState.IsValid) return View(model);
+	BrandController
+
+
+Models -> Make the related model properties nullable (with ?) to prevent errors while creating and editing models
+
+Views
+	Seller views
+	Brand views
+
+
