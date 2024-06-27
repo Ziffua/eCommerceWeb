@@ -146,7 +146,7 @@ namespace eCommerceWeb.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var productDetails = await _service.GetByIdAsync(id); // var mı/yok mu
+            var productDetails = await _service.GetProductByIdAsync(id);
 
             if (productDetails == null) return View("NotFound");
 
@@ -157,7 +157,7 @@ namespace eCommerceWeb.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var productDetails = await _service.GetByIdAsync(id);
+            var productDetails = await _service.GetProductByIdAsync(id);
 
             if (productDetails == null) return View("NotFound");
 
