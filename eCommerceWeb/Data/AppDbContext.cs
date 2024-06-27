@@ -1,10 +1,11 @@
 ﻿using eCommerceWeb.Models;
 using eCommerceWeb.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace eCommerceWeb.Data
 {
-    public class AppDbContext: DbContext
+    public class AppDbContext: IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
         {
@@ -13,9 +14,12 @@ namespace eCommerceWeb.Data
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Brand> Brands { get; set; }
-        public DbSet<Seller> Sellers { get; set;}
-        public DbSet<NewProductVM> NewProduct { get; set; } = default!;
+        public DbSet<Shop> Shops { get; set;}
+        public DbSet<NewProductVM> NewProductVM { get; set; } = default!;
 
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set;}
     }
 }

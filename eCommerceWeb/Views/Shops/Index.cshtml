@@ -1,0 +1,45 @@
+﻿@model IEnumerable<eCommerceWeb.Models.Shop>
+
+@{
+    ViewData["Title"] = "Dükkanlar";
+}
+
+<h1>Dükkanlar</h1>
+<h4>Sevdiğin ürünleri satan Mağazaları incele!</h4>
+<hr />
+
+<div class="container">
+    <div class="row pt-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-3 col-md-3 col-sm-6 mb-3">
+                    <div class="card h-100 border-2">
+                        <a asp-controller="Shops" asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none text-dark">
+                        <div class="card-header text-light" style="background-color: #55AD9B;">
+                            <h3 class="card-title mb-0">
+                                @item.Name
+
+                                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                {
+                                    <a class="text-white float-end" asp-action="Edit" asp-route-id="@item.Id">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                }
+                            </h3>
+                        </div>
+                        </a>
+                        <a asp-controller="Shops" asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none text-dark">
+                        <img class="card-img-top img-fluid" src="@item.PictureUrl" style="height: 200px; " alt="@item.Name">
+                        
+                        <div class="card-body">
+                            <p class="card-text">@item.About</p>
+                        </div>
+                        </a>
+                    </div>
+                
+            </div>
+        }
+    </div>
+</div>
+
+

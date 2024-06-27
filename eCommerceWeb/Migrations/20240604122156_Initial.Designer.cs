@@ -81,19 +81,19 @@ namespace eCommerceWeb.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("SellerId")
+                    b.Property<int>("ShopId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
 
-                    b.HasIndex("SellerId");
+                    b.HasIndex("ShopId");
 
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("eCommerceWeb.Models.Seller", b =>
+            modelBuilder.Entity("eCommerceWeb.Models.Shop", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -115,7 +115,7 @@ namespace eCommerceWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sellers");
+                    b.ToTable("Shops");
                 });
 
             modelBuilder.Entity("eCommerceWeb.Models.Product", b =>
@@ -126,15 +126,15 @@ namespace eCommerceWeb.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("eCommerceWeb.Models.Seller", "Seller")
+                    b.HasOne("eCommerceWeb.Models.Shop", "Shop")
                         .WithMany("Products")
-                        .HasForeignKey("SellerId")
+                        .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Brand");
 
-                    b.Navigation("Seller");
+                    b.Navigation("Shop");
                 });
 
             modelBuilder.Entity("eCommerceWeb.Models.Brand", b =>
@@ -142,7 +142,7 @@ namespace eCommerceWeb.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("eCommerceWeb.Models.Seller", b =>
+            modelBuilder.Entity("eCommerceWeb.Models.Shop", b =>
                 {
                     b.Navigation("Products");
                 });

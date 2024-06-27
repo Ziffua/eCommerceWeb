@@ -11,7 +11,7 @@
     <None Include="wwwroot\assets\Images\BrandLogos\canonLogo.png" />
     <None Include="wwwroot\assets\Images\BrandLogos\Nike-Logo.png" />
     <None Include="wwwroot\assets\Images\ProductImages\canonCam1.jpg" />
-    <None Include="wwwroot\assets\Images\SellerImages\sellerLogo1.png" />
+    <None Include="wwwroot\assets\Images\ShopImages\shopLogo1.png" />
     <None Include="wwwroot\assets\img\about\1.jpg" />
     <None Include="wwwroot\assets\img\about\2.jpg" />
     <None Include="wwwroot\assets\img\about\3.jpg" />
@@ -36,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
       <PrivateAssets>all</PrivateAssets>

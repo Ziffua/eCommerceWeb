@@ -1,0 +1,59 @@
+﻿@using System.Globalization
+@using System.Security.Claims
+@model eCommerceWeb.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+    var currencyFormat = new CultureInfo("tr-TR");
+}
+
+<h1>Ürün Detayları @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model?.Id">Sil</a>
+    }
+    else if (User.Identity.IsAuthenticated && User.FindFirst(ClaimTypes.NameIdentifier)?.Value == Model.Shop.ApplicationUserId)
+    {
+        <a class="btn btn-primary mx-2" asp-action="Edit" asp-route-id="@Model?.Id">Düzenle</a>
+        @* <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model?.Id">Sil</a> *@
+    }
+</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4 col-lg-5">
+        <img class="img-fluid border-3" src="@Model.PictureUrl" style="height: 100%; width: 100%;">
+    </div>
+
+    <div class="col-md-6 mx-1">
+        <div class="row-md-12">           
+            <h4><a class="text-decoration-none text-dark" asp-controller="Brands" asp-action="Details" asp-route-id="@Model.Brand.Id"><b>@Model.Brand.Name</b> </a>@Model.Name</h4>
+            <h6><p>Satıcı: <a class="text-decoration-none" asp-controller="Shops" asp-action="Details" asp-route-id="@Model.Shop.Id">@Model.Shop.Name</a></p></h6>
+        </div>
+        <div class="row">
+            <h2><b>@Model.Price.ToString("c", currencyFormat)</b></h2>
+        </div>
+        <div class="row my-3">
+            <div class="col-md-4 p-2">
+                <a class=" btn btn-success rounded @((Model.Quantity<1) ? "disabled" : "") "
+                   asp-controller="Orders"
+                   asp-action="AddItemToShoppingCart"
+                   asp-route-id="@Model.Id">
+                   <h4>
+                        <i class="bi bi-cart-plus"></i>  Sepete Ekle
+                   </h4>
+                    
+                </a>
+            </div>
+            
+        </div>
+        <div class="row">
+            <hr />
+            <h6><b>Ürün Açıklaması</b></h6>
+            <div class="m-2">
+                <h6>@Model.Details</h6>
+            </div>
+            
+            
+        </div>
+    </div>
+

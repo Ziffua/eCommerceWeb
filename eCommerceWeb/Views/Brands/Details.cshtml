@@ -1,36 +1,53 @@
 ﻿@model eCommerceWeb.Models.Brand
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Name + " | Marka Detayları";
 }
 
-<h1>Details</h1>
+<div class="row">
+    <h1>@Model.Name
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mx-1">Düzenle</a>
+            <a asp-controller="Brands" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger ">Sil</a>
+        }
+    </h1>
+    <p>Marka Detayları</p>
+</div>
+<div>
+    <hr />
+    <div class="row ">
+        <div class="col-md-4 ">
+            <img class="rounded-circle" src="@Model.LogoUrl" alt="@Model.Name" style="width:250px; height:250px;" />
+        </div>
+        <div class="col-md-5 col-lg-5">
+            <div class="d-flex align-items-center h-100">
+                <h5>@Html.DisplayFor(model => model.Description)</h5>
+            </div>
+            
+        </div>
+    </div>   
+</div>
 
 <div>
-    <h4>Brand</h4>
+    <h4>@Model.Name Marka Ürünler</h4> 
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LogoUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LogoUrl)
-        </dd>
-    </dl>
+    <div class="row pt-3 mb-5">
+        @foreach (var product in Model.Products)
+        {
+            <div class="col-2">
+                <div class="card mb-4 border-3 text-light" style="background-color: #55AD9B; ">
+                    <img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px>
+                    <div class="card-body text-center" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height:150px;">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">$@product.Price</p>
+                        <a class="btn btn-primary" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+

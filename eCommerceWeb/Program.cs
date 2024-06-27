@@ -1,6 +1,10 @@
 using eCommerceWeb.Data;
+using eCommerceWeb.Data.Cart;
 using eCommerceWeb.Data.Interfaces;
 using eCommerceWeb.Data.Services;
+using eCommerceWeb.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace eCommerceWeb
@@ -18,9 +22,31 @@ namespace eCommerceWeb
             builder.Services.AddDbContext<Data.AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
             //Service configuration. Register the Model services and their related interfaces
-            builder.Services.AddScoped<ISellerService, SellerService>();
+            builder.Services.AddScoped<IShopService, ShopService>();
             builder.Services.AddScoped<IBrandService, BrandService>();
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+
+            builder.Services
+                .AddIdentity<ApplicationUser, IdentityRole>(options => {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequiredLength = 6;
+                })
+                .AddEntityFrameworkStores<AppDbContext> ();
+            builder.Services.AddMemoryCache();
+            builder.Services.AddSession();
+            builder.Services.AddAuthentication(options => { 
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            });
+
+
+            builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
@@ -37,13 +63,16 @@ namespace eCommerceWeb
 
             app.UseRouting();
 
+            app.UseSession();
+            app.UseAuthentication ();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Sellers}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             AppDbInitializer.Seed(app);
+            AppDbInitializer.SeedUserAndRolesAsync(app).Wait();
 
             app.Run();
         }

@@ -3,7 +3,7 @@ using eCommerceWeb.Models;
 
 namespace eCommerceWeb.Data.Interfaces
 {
-    public interface ISellerService:IEntityBaseRepository<Seller>
+    public interface IShopService:IEntityBaseRepository<Shop>
     {
     }
 }

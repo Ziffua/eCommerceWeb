@@ -4,9 +4,9 @@ using eCommerceWeb.Models;
 
 namespace eCommerceWeb.Data.Services
 {
-    public class SellerService: EntityBaseRepository<Seller>, ISellerService
+    public class ShopService: EntityBaseRepository<Shop>, IShopService
     {
-        public SellerService(AppDbContext context):base(context)
+        public ShopService(AppDbContext context):base(context)
         {
             
         }

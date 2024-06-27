@@ -1,0 +1,48 @@
+﻿@using System.Security.Claims
+@model eCommerceWeb.Models.Shop
+
+@{
+    ViewData["Title"] = Model.Name;
+    string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+}
+
+@* <h1>@Model.Name</h1> Edit | Delete  *@
+<h1>@Model.Name @if (User.Identity.IsAuthenticated && User.IsInRole("Admin")){
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-primary mx-2">Düzenle</a>
+        <a asp-controller="Account" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-sm btn-danger ">Sil</a>}
+        else if (User.Identity.IsAuthenticated && User.IsInRole("Seller") && Model.ApplicationUserId == userId)
+        {
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-primary mx-2">Düzenle</a>
+        }
+</h1>
+
+<div class="row mb-4">
+    <div class="col-md-2 col-lg-2 col-sm-6">
+        <img class="img-fluid border-3" src="@Model.PictureUrl" style="height: 150px; width: 100%;">
+    </div>
+    <div class="col-md-5 col-lg-5 d-flex align-items-center">
+    <h5>@Model.About</h5>
+    </div>
+</div>
+<hr />
+
+<h4>@Model.Name Ürünleri</h4>
+<div class="row pt-3 mb-5">
+
+    @foreach (var product in Model.Products)
+    {
+        <div class="col-2">
+            <div class="card mb-4 border-3 text-light" style="background-color: #55AD9B; ">
+                <img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px>
+                <div class="card-body text-center" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height:150px;">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-text">$@product.Price</p>
+                    <a class="btn btn-primary" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+

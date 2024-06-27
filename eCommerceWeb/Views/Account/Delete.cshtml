@@ -1,0 +1,60 @@
+﻿@model eCommerceWeb.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Hesabı Sil";
+    var shop = ViewBag.Shop as Shop;
+}
+
+<h1>Bu Hesabı Silmek İstediğine Emin Misin?</h1>
+
+<div>
+    <dl class="row">
+
+        <dt class="col-sm-2">Tam ad:</dt>
+        <dd class="col-sm-10">@Model.FullName</dd>
+
+        <dt class="col-sm-2">User ID:</dt>
+        <dd class="col-sm-10">@Model.Id</dd>
+
+        <dt class="col-sm-2">Username:</dt>
+        <dd class="col-sm-10">@Model.UserName</dd>
+
+        <dt class="col-sm-2">Email adresi:</dt>
+        <dd class="col-sm-10">@Model.Email</dd>
+
+    </dl>
+
+    @if(ViewBag.Shop != null)
+    {
+        <p class="alert-danger mx-2 container">Dikkat! Aşağıdaki dükkan da silinecek:</p>
+
+        <div class="row">
+            <div class="col-md-1 col-lg-1"><img class="img-fluid" src="@shop.PictureUrl" style="width: 80px; height: 80px" /></div>
+            <div class="col-md-3 col-lg-3">
+                <dl class="row">
+                    <dt class="col-sm-6">Dükkan İsmi:</dt>
+                    <dd class="col-sm-6">@shop.Name </dd>
+                </dl>
+            </div>
+            
+        </div>
+        
+    }   
+
+    <div class="row py-3">
+        <form asp-action="Delete" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="userId" value="@Model.Id" />
+            <div>
+                <p>Hesap silme işlemini onaylamak için <b>User ID</b> bilgisini aşağıya giriniz. <br /><b>[@Model.Id]</b></p>
+                <input type="text" id="confirmationWord" name="confirmationWord" />
+            </div>
+
+            <div class="form-group pt-4">
+                <input type="submit" value="Sil" class="btn btn-danger mx-2" /> |
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary mx-2">İptal</a>
+            </div>
+        </form>
+    </div>
+    
+</div>

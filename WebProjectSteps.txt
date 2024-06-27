@@ -30,13 +30,13 @@ Data/Base
 Data/Interfaces
 	IBrandService
 	IProductService
-	ISellerService
+	IShopService
 inheritance from IEntityBaseRepository<~Brand>
 
 Data/Services
 	BrandService
 	ProductService
-	SellerService
+	ShopService
 inheritance from EntityBaseRepository<~Brand>, ~IBrandService
 
 Program.cs
@@ -44,7 +44,7 @@ Register Services
 builder.Services.AddScoped<interface, service>();
 
 Controllers
-	SellerController
+	ShopController
 		Create -> HttpPost -> if(!ModelState.isValid) return View();
 		HttpGet -> if (model == null) return View("NotFound"); HttpPost -> if (!ModelState.IsValid) return View(model);
 	BrandController
@@ -53,7 +53,7 @@ Controllers
 Models -> Make the related model properties nullable (with ?) to prevent errors while creating and editing models
 
 Views
-	Seller views
+	Shop views
 	Brand views
 
 Controller and Views

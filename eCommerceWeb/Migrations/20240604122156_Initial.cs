@@ -26,7 +26,7 @@ namespace eCommerceWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sellers",
+                name: "Shops",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -37,7 +37,7 @@ namespace eCommerceWeb.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sellers", x => x.Id);
+                    table.PrimaryKey("PK_Shops", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -53,7 +53,7 @@ namespace eCommerceWeb.Migrations
                     PictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Category = table.Column<int>(type: "int", nullable: false),
                     BrandId = table.Column<int>(type: "int", nullable: false),
-                    SellerId = table.Column<int>(type: "int", nullable: false)
+                    ShopId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,9 +65,9 @@ namespace eCommerceWeb.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Products_Sellers_SellerId",
-                        column: x => x.SellerId,
-                        principalTable: "Sellers",
+                        name: "FK_Products_Shops_ShopId",
+                        column: x => x.ShopId,
+                        principalTable: "Shops",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -78,9 +78,9 @@ namespace eCommerceWeb.Migrations
                 column: "BrandId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_SellerId",
+                name: "IX_Products_ShopId",
                 table: "Products",
-                column: "SellerId");
+                column: "ShopId");
         }
 
         /// <inheritdoc />
@@ -93,7 +93,7 @@ namespace eCommerceWeb.Migrations
                 name: "Brands");
 
             migrationBuilder.DropTable(
-                name: "Sellers");
+                name: "Shops");
         }
     }
 }

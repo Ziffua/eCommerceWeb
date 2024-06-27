@@ -1,13 +1,14 @@
-﻿@model eCommerceWeb.Models.Seller
+﻿@model eCommerceWeb.Models.Shop
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Delete";
 }
 
-<h1>Details</h1>
+<h1>Delete</h1>
 
+<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Seller</h4>
+    <h4>Shop</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -29,8 +30,13 @@
             @Html.DisplayFor(model => model.PictureUrl)
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <p>Write the Shop Name below to confirm the deletion process</p>
+        <label for="confirmationWord">Shop Name</label>
+        <input type="text" id="confirmationWord" name="confirmationWord" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
 </div>

@@ -1,4 +1,5 @@
 ﻿
+using eCommerceWeb.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
@@ -26,7 +27,7 @@ namespace eCommerceWeb.Data.Base
             await _context.SaveChangesAsync();
         }
 
-        //Retieve all items of the target model with items of the related models
+        //Retieve all elements of the target model with the related models of them
         public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = _context.Set<T>();
@@ -45,6 +46,14 @@ namespace eCommerceWeb.Data.Base
         {
             var entity = await _context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
             return entity;
+        }
+
+        public async Task<T> GetByIdAsync(int id, params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            query = includeProperties.Aggregate(query,(current,next) => current.Include(next));
+            return await query.FirstOrDefaultAsync(e=> e.Id == id);
+
         }
 
         public async Task UpdateAsync(T entity)

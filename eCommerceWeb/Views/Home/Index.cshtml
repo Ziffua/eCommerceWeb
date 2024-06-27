@@ -1,8 +1,180 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using eCommerceWeb.Models;
+@model IEnumerable<Brand>
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+@{
+    var mostPopularProducts = ViewBag.MostPopularProducts as List<Product>;
+    var popularElectronics = ViewBag.PopularElectronics as List<Product>;
+    var popularClothes = ViewBag.PopularFashion as List<Product>;
+    var popularHomeStuff = ViewBag.PopularHome as List<Product>;
+    var popularBooks = ViewBag.PopularBooks as List<Product>;
+    var popularSelfcare = ViewBag.PopularSelfcare as List<Product>;
+    var popularHobby = ViewBag.PopularHobby as List<Product>;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="jumbotron text-center p-5 mb-5 border" style="background-color: #55AD9B; color: #D8EFD3;">
+    <h1>eCommerce'e Hoş geldiniz!</h1>
+    <h4>Sizin için en popüler ürünleri ve fırsatları derledik</h4>
+</div>
+
+<div class="container">
+    <!-- Popular Products -->
+    <h2 class="mb-4" style="color: #55AD9B;">Popüler Ürünler</h2>
+    <div class="row pb-5">
+
+        @foreach (var product in mostPopularProducts)
+            {
+            <div class="col-2 " >
+                <div class="card mb-4 border-3 text-light" style="background-color: #55AD9B;">
+                    <div class="m-2"><img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px></div>
+
+                    <div class="card-body" height=150px>
+                            <h5 class="card-title">@product.Name</h5>
+                            <h6 class="card-text">@product.Price ₺</h6>
+                        <a class="btn btn-success"  asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+    </div>
+
+    <h2 class="mb-4" style="color: #55AD9B;">En sevilen Markalar</h2>
+    <div class="row pb-5">
+
+        @foreach (var brand in Model)
+        {
+            <div class="col-md-2 col-lg-2 ">
+                <a class="" asp-controller="Brands" asp-action="Details" asp-route-id="@brand.Id">
+                    <img src="@brand.LogoUrl" class="rounded-circle border-1" alt="@brand.Name" title="@brand.Name" width=150px height=150px />
+                </a>              
+            </div>
+
+
+        }
+
+    </div>
+
+    <!-- Electronics -->
+    <h2 class="mb-4" style="color: #55AD9B;">İlginizi çekebilecek <b>Elektronik</b> Ürünler</h2>
+    <div class="row pb-5">
+
+            @foreach (var product in popularElectronics)
+                {
+            <div class="col-md-2" >
+                <div class="card mb-4 border-3 text-light" style="background-color: #55AD9B;">
+                    <div class="m-2"><img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px></div>
+                    <div class="card-body" height=150px>
+                                <h5 class="card-title">@product.Name</h5>
+                                <p class="card-text">@product.Price ₺</p>
+                        <a class="btn btn-success"  asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+    </div>
+
+    <!-- Fashion -->
+    <h2 class="mb-4" style="color: #55AD9B;">İlginizi çekebilecek <b>Moda</b> ürünleri</h2>
+    <div class="row pb-5">
+
+
+            @foreach (var product in popularClothes)
+                {
+            <div class="col-md-2" >
+                <div class="card mb-4 border-3 text-light" style="background-color: #55AD9B; ">
+                    <div class="m-2"><img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px></div>
+                    <div class="card-body" height=150px>
+                                <h5 class="card-title">@product.Name</h5>
+                                <p class="card-text">@product.Price ₺</p>
+                        <a class="btn btn-success"  asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+    </div>
+
+    <!-- Home -->
+    <h2 class="mb-4" style="color: #55AD9B;">İlginizi çekebilecek <b>Ev Eşyaları</b></h2>
+    <div class="row pb-5">
+
+            @foreach (var product in popularHomeStuff)
+            {
+            <div class="col-md-2" >
+                <div class="card mb-4 border-3 text-light" style="background-color: #55AD9B;">
+                    <div class="m-2"><img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px></div>
+                    <div class="card-body" height=150px>
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text">@product.Price ₺</p>
+                        <a class="btn btn-success" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+    </div>
+
+    <!-- Book -->
+    <h2 class="mb-4" style="color: #55AD9B;">İlginizi çekebilecek <b>Kitaplar</b></h2>
+    <div class="row pb-5">
+
+        @foreach (var product in popularBooks)
+        {
+            <div class="col-md-2">
+                <div class="card mb-4 border-3 text-light" style="background-color: #55AD9B;">
+                    <div class="m-2"><img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px></div>
+                    <div class="card-body" height=150px>
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">@product.Price ₺</p>
+                        <a class="btn btn-success" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <!-- Selfcare -->
+    <h2 class="mb-4" style="color: #55AD9B;">İlginizi çekebilecek <b>Kişisel Bakım</b> Ürünleri</h2>
+    <div class="row pb-5">
+
+        @foreach (var product in popularSelfcare)
+        {
+            <div class="col-md-2">
+                <div class="card mb-4 border-3 text-light" style="background-color: #55AD9B;">
+                    <div class="m-2"><img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px></div>
+                    <div class="card-body" height=150px>
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">@product.Price ₺</p>
+                        <a class="btn btn-success" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <!-- Hobby -->
+    <h2 class="mb-4" style="color: #55AD9B;">İlginizi çekebilecek <b>Hobi ve Eğlence</b> Ürünleri</h2>
+    <div class="row pb-5">
+
+        @foreach (var product in popularHobby)
+        {
+            <div class="col-md-2">
+                <div class="card mb-4 border-3 text-light" style="background-color: #55AD9B;">
+                    <div class="m-2"><img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px></div>
+                    <div class="card-body" height=150px>
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">@product.Price ₺</p>
+                        <a class="btn btn-success" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
 </div>

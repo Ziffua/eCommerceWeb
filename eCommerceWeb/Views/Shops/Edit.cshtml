@@ -1,0 +1,89 @@
+﻿@model eCommerceWeb.Models.Shop
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <h1>Dükkanı Düzenle <a asp-controller="Account" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-sm btn-danger mx-2">Sil</a></h1>
+}
+else
+{
+    <h1>Dükkanım <a asp-controller="Account" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-sm btn-danger mx-2">Sil</a></h1>
+}
+    
+
+
+<h5>Buradan dükkan ayarı veya yeni ürün girişi yapabilirsin</h5>
+<hr />
+<div class="row mb-4">
+    <div class="col-md-4 border-3">
+        <img class="img-fluid" src="@Model.PictureUrl" style="max-width: 100%; height: auto;">
+    </div>
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="About" class="control-label"></label>
+                <input asp-for="About" class="form-control" />
+                <span asp-validation-for="About" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PictureUrl" class="control-label"></label>
+                <input asp-for="PictureUrl" class="form-control" />
+                <span asp-validation-for="PictureUrl" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="ApplicationUserId" class="form-control" />
+            <div class="form-group mt-2">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+<h4>Ürünleri Düzenle</h4>
+<div class="row pt-3 mb-5">
+
+        <div class="col-2">
+        <div class="card mb-4 border-3">
+            <a asp-controller="Products" asp-action="Create" class="text-decoration-none">
+                <img src="https://static.vecteezy.com/system/resources/previews/009/684/280/original/sign-of-the-plus-symbol-is-isolated-on-a-white-background-plus-icon-color-editable-vector.jpg" class="card-img-top" alt="Create Product" width=150px height=150px>
+                </a>
+            <div class="card-body text-center" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <h5 class="card-title">Yeni Ürün Ekle</h5>
+                </div>
+            </div>
+        </div>
+
+        @foreach (var product in Model.Products)
+        {
+            <div class="col-2">
+            <div class="card mb-4 border-3 text-light" style="background-color: #55AD9B; ">
+                <img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px>
+                    <div class="card-body text-center" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height:150px;">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">$@product.Price</p>
+                    <div class="row">
+                        <a class="btn btn-primary" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id">Düzenle</a>
+                        @* <a class="btn btn-danger" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id"><i class="bi bi-trash"></i> Sil</a> *@
+                    </div>
+                        
+
+                    </div>
+                </div>
+            </div>
+        }
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

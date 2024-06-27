@@ -2,11 +2,12 @@
 {
     public enum ProductCategory
     {
-        Fashion,
+        Fashion=1,
         Electironic,
         Selfcare,
         Home,
-
+        Book,
+        Hobby
 
 
     }

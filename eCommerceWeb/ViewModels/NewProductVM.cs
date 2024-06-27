@@ -10,29 +10,29 @@ namespace eCommerceWeb.ViewModels
         [Key]
         public int id { get; set; }
         
-        [Display(Name ="Product Name")]
+        [Display(Name = "Ürün İsmi")]
         [Required(ErrorMessage ="Name is required")]
         public string Name { get; set; }
-        [Display(Name="Details")]
+        [Display(Name= "Ürün detayları")]
         [Required(ErrorMessage ="Detail info is required")]
         public string Details { get; set; }
-        [Display(Name = "Price")]
+        [Display(Name = "Fiyat")]
         [Required(ErrorMessage = "Price info is required")]
         public double Price { get; set; }
-        [Display(Name = "Quantity")]
+        [Display(Name = "Ürün Stoku")]
         [Required(ErrorMessage = "Quantity info is required")]
         public int Quantity { get; set; }
-        [Display(Name = "Product Image")]
+        [Display(Name = "Ürün Resmi")]
         [Required(ErrorMessage = "Product Image is required")]
         public string PictureUrl { get; set; }
-        [Display(Name = "Product Category")]
+        [Display(Name = "Kategori")]
         [Required(ErrorMessage = "Category is required")]
         public ProductCategory Category { get; set; }
-        [Display(Name = "Select Brand")]
+        [Display(Name = "Marka")]
         [Required(ErrorMessage = "Brand is required")]
         public int BrandId { get; set; }
-        [Display(Name = "Select Seller")]
+        [Display(Name = "Dükkan")]
         [Required(ErrorMessage = "Shor info is required")]
-        public int SellerId { get; set; }
+        public int ShopId { get; set; }
     }
 }

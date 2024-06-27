@@ -31,7 +31,7 @@ namespace eCommerceWeb.Migrations
                     PictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Category = table.Column<int>(type: "int", nullable: false),
                     BrandId = table.Column<int>(type: "int", nullable: false),
-                    SellerId = table.Column<int>(type: "int", nullable: false)
+                    ShopId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
