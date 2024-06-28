@@ -2,7 +2,9 @@
 using eCommerceWeb.Data.Enums;
 using eCommerceWeb.Data.Interfaces;
 using eCommerceWeb.Data.Services;
+using eCommerceWeb.Data.Static;
 using eCommerceWeb.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +49,7 @@ namespace eCommerceWeb.Controllers
             return View(productDetails);
         }
 
+        [Authorize(Roles = UserRoles.Seller)]
         public async Task<IActionResult> Create()
         {
             var productDropDownsData = await _service.GetNewProductDropdownsValues();
@@ -75,6 +78,8 @@ namespace eCommerceWeb.Controllers
             return RedirectToAction(nameof(Edit), "Shops", new {id=shop.Id});
 
         }
+
+        [Authorize(Roles = $"{UserRoles.Admin},{UserRoles.Seller}")]
         public async Task<IActionResult> Edit(int id)
         {
             var productDetails = await _service.GetProductByIdAsync(id); 
@@ -144,6 +149,7 @@ namespace eCommerceWeb.Controllers
             return View("Index", allProducts);
         }
 
+        [Authorize(Roles = $"{UserRoles.Admin},{UserRoles.Seller}")]
         public async Task<IActionResult> Delete(int id)
         {
             var productDetails = await _service.GetProductByIdAsync(id);

@@ -1,6 +1,7 @@
 ﻿using eCommerceWeb.Data.Base;
 using eCommerceWeb.Data.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eCommerceWeb.Models
 {
@@ -20,12 +21,15 @@ namespace eCommerceWeb.Models
         public string PictureUrl { get; set; }
         [Display(Name = "Kategori")]
         public ProductCategory Category { get; set; }
-        [Display(Name = "Ürünün Görüntülenme Sayısı")]
+        [Display(Name = "Görüntülenme Sayısı")]
         public int ViewCount { get; set; }
-        
+
         //Relations
+        [ForeignKey("BrandId")]
         public int BrandId { get; set; }
         public Brand Brand { get; set; }
+
+        [ForeignKey("ShopId")]
         public int ShopId { get; set; }
         public Shop Shop { get; set; }
 

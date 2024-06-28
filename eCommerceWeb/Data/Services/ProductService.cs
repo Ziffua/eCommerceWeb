@@ -1,7 +1,6 @@
 ﻿using eCommerceWeb.Data.Base;
 using eCommerceWeb.Data.Enums;
 using eCommerceWeb.Data.Interfaces;
-using eCommerceWeb.Migrations;
 using eCommerceWeb.Models;
 using eCommerceWeb.ViewModels;
 using Microsoft.EntityFrameworkCore;

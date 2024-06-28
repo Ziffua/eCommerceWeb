@@ -2,10 +2,12 @@
 using eCommerceWeb.Data.Interfaces;
 using eCommerceWeb.Data.Services;
 using eCommerceWeb.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eCommerceWeb.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly IProductService _productService;
@@ -20,6 +22,7 @@ namespace eCommerceWeb.Controllers
 
         }
 
+        
         public async Task<IActionResult> Index()
         {
             string userId = "";

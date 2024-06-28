@@ -47,6 +47,9 @@ namespace eCommerceWeb.Data.Services
                 };
 
                 await _context.OrderItems.AddAsync(orderItem);
+
+                var product = _context.Products.FirstOrDefault(p => p.Id == orderItem.ProductId);
+                if(product!=null && product.Quantity-orderItem.Amount>=0) product.Quantity -= orderItem.Amount;                
             }
 
             await _context.SaveChangesAsync();

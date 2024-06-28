@@ -3,6 +3,7 @@ using eCommerceWeb.Data.Interfaces;
 using eCommerceWeb.Data.Static;
 using eCommerceWeb.Models;
 using eCommerceWeb.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ namespace eCommerceWeb.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Login()
         {
             var response = new LoginVM();
@@ -83,7 +85,7 @@ namespace eCommerceWeb.Controllers
             var user = await _userManager.FindByEmailAsync(registerVM.Email);
             if (user != null)
             {
-                TempData["Error"] = "Bu e-posta adresi başka biri tarafında kullanılmakta";
+                TempData["Error"] = "Bu e-posta adresi zaten kullanılmaktadır";
                 return View(registerVM);
             }
 
@@ -134,6 +136,7 @@ namespace eCommerceWeb.Controllers
             return View();
         }
 
+        [Authorize(Roles = $"{UserRoles.Admin},{UserRoles.Seller}")]
         [HttpGet]
         [Route("Account/Delete/{id:length(36)}")]
         public async Task<IActionResult> Delete(string id)
@@ -147,6 +150,7 @@ namespace eCommerceWeb.Controllers
             return View(user);
         }
 
+        [Authorize(Roles = $"{UserRoles.Admin},{UserRoles.Seller}")]
         [HttpGet]
         [Route("Account/Delete/{id:int}")]
         public async Task<IActionResult> Delete(int id)

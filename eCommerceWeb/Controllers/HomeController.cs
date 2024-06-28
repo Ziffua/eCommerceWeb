@@ -1,6 +1,7 @@
 using eCommerceWeb.Data;
 using eCommerceWeb.Data.Enums;
 using eCommerceWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -17,6 +18,7 @@ namespace eCommerceWeb.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var brands = _context.Brands

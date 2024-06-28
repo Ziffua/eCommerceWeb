@@ -4,9 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eCommerceWeb.Data.Interfaces;
 using eCommerceWeb.Models;
+using eCommerceWeb.Data.Static;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eCommerceWeb.Controllers
 {
+    
     public class BrandsController : Controller
     {
         private readonly IBrandService _service;
@@ -14,6 +17,8 @@ namespace eCommerceWeb.Controllers
         {
             _service = service;
         }
+
+        [Authorize(Roles = UserRoles.Admin)]
         // GET: BrandController
         public async Task<IActionResult> Index()
         {
@@ -22,6 +27,7 @@ namespace eCommerceWeb.Controllers
         }
 
         //Get
+        [Authorize(Roles = $"{UserRoles.Admin},{UserRoles.Seller}")]
         [HttpGet]
         //Since that page doesn't require anything to get done asynchronously, it is not a Task
         public IActionResult Create()
@@ -55,6 +61,7 @@ namespace eCommerceWeb.Controllers
             return View(brandData);
         }
 
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpGet]
         //id comes from the selected model item
         public async Task<IActionResult> Edit(int id)
@@ -73,6 +80,7 @@ namespace eCommerceWeb.Controllers
             return RedirectToAction(nameof(Details), new {id=editedBrand.Id});
         }
 
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {

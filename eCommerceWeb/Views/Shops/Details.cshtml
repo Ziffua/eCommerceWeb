@@ -6,7 +6,7 @@
     string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 }
 
-@* <h1>@Model.Name</h1> Edit | Delete  *@
+@* Model.Name Edit | Delete  *@
 <h1>@Model.Name @if (User.Identity.IsAuthenticated && User.IsInRole("Admin")){
         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-primary mx-2">Düzenle</a>
         <a asp-controller="Account" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-sm btn-danger ">Sil</a>}

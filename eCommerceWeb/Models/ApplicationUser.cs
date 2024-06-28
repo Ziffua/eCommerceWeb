@@ -5,7 +5,7 @@ namespace eCommerceWeb.Models
 {
     public class ApplicationUser:IdentityUser
     {
-        [Display(Name = "Ad ve Soyad")]
+        [Display(Name = "Ad Soyad")]
         public string FullName { get; set; }
         public Shop? Shop { get; set; }
     }

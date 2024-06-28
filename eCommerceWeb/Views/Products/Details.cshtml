@@ -9,6 +9,7 @@
 
 <h1>Ürün Detayları @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
     {
+        <a class="btn btn-primary mx-2" asp-action="Edit" asp-route-id="@Model?.Id">Düzenle</a>
         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model?.Id">Sil</a>
     }
     else if (User.Identity.IsAuthenticated && User.FindFirst(ClaimTypes.NameIdentifier)?.Value == Model.Shop.ApplicationUserId)
@@ -34,14 +35,18 @@
         </div>
         <div class="row my-3">
             <div class="col-md-4 p-2">
-                <a class=" btn btn-success rounded @((Model.Quantity<1) ? "disabled" : "") "
+                <a class=" btn @((Model.Quantity<1) ? "btn-danger disabled" : "btn-success") rounded"
                    asp-controller="Orders"
                    asp-action="AddItemToShoppingCart"
                    asp-route-id="@Model.Id">
-                   <h4>
-                        <i class="bi bi-cart-plus"></i>  Sepete Ekle
-                   </h4>
-                    
+                    @if (Model.Quantity < 1)
+                    {
+                        <h4>Tükendi</h4>
+                    }
+                    else
+                    {
+                        <h4><i class="bi bi-cart-plus"></i>  Sepete Ekle</h4>
+                    }                                      
                 </a>
             </div>
             

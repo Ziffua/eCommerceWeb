@@ -1,6 +1,8 @@
 ﻿using eCommerceWeb.Data;
 using eCommerceWeb.Data.Interfaces;
+using eCommerceWeb.Data.Static;
 using eCommerceWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +37,7 @@ namespace eCommerceWeb.Controllers
             return View(shopData);
         }
 
+        [Authorize(Roles = $"{UserRoles.Admin},{UserRoles.Seller}")]
         [HttpGet]
         //id comes from the selected model item
         public async Task<IActionResult> Edit(int id)
@@ -54,6 +57,7 @@ namespace eCommerceWeb.Controllers
           
         }
 
+        [Authorize(Roles = $"{UserRoles.Admin},{UserRoles.Seller}")]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
@@ -72,6 +76,7 @@ namespace eCommerceWeb.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = UserRoles.Seller)]
         public async Task<IActionResult> MyShop()
         {
             var user = await _userManager.GetUserAsync(User);
