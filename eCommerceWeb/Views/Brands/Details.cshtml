@@ -1,6 +1,7 @@
-﻿@model eCommerceWeb.Models.Brand
+﻿@model Brand
 
 @{
+    var currencyFormat = new CultureInfo("tr-TR");
     ViewData["Title"] = Model.Name + " | Marka Detayları";
 }
 
@@ -12,9 +13,9 @@
             <a asp-controller="Brands" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger ">Sil</a>
         }
     </h1>
-    <p>Marka Detayları</p>
 </div>
 <div>
+    <p>Marka Detayları</p>
     <hr />
     <div class="row ">
         <div class="col-md-4 ">
@@ -29,7 +30,7 @@
     </div>   
 </div>
 
-<div>
+<div class="row pt-5">
     <h4>@Model.Name Marka Ürünler</h4> 
     <hr />
     <div class="row pt-3 mb-5">
@@ -40,7 +41,7 @@
                     <img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px>
                     <div class="card-body text-center" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height:150px;">
                         <h5 class="card-title">@product.Name</h5>
-                        <p class="card-text">$@product.Price</p>
+                        <p class="card-text">@product.Price.ToString("c",currencyFormat)</p>
                         <a class="btn btn-primary" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
                     </div>
                 </div>

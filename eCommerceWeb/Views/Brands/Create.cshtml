@@ -13,18 +13,18 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+            <div class="form-group my-md-1">
+                <label asp-for="Name" class="control-label fw-bold "></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
+            <div class="form-group my-md-1">
+                <label asp-for="Description" class="control-label fw-bold"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="LogoUrl" class="control-label"></label>
+            <div class="form-group my-md-1">
+                <label asp-for="LogoUrl" class="control-label fw-bold"></label>
                 <input asp-for="LogoUrl" class="form-control" />
                 <span asp-validation-for="LogoUrl" class="text-danger"></span>
             </div>
@@ -34,6 +34,7 @@
             }
             <div class="form-group my-3">
                 <input type="submit" value="Ekle" class="btn btn-primary" />
+                <a class="btn btn-danger float-end" asp-controller="Products" asp-action="Create">İptal</a>
             </div>
         </form>
     </div>

@@ -1,6 +1,8 @@
 ﻿@using eCommerceWeb.Models;
+@using System.Globalization
 @model IEnumerable<Brand>
 @{
+    var currencyFormat = new CultureInfo("tr-TR");
     ViewData["Title"] = "Ana Sayfa";
 }
 @{
@@ -22,23 +24,26 @@
     <!-- Popular Products -->
     <h2 class="mb-4" style="color: #55AD9B;">Popüler Ürünler</h2>
     <div class="row pb-5">
-
         @foreach (var product in mostPopularProducts)
-            {
-            <div class="col-2 " >
-                <div class="card mb-4 border-3 text-light" style="background-color: #55AD9B;">
-                    <div class="m-2"><img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px></div>
-
-                    <div class="card-body" height=150px>
-                            <h5 class="card-title">@product.Name</h5>
-                            <h6 class="card-text">@product.Price ₺</h6>
-                        <a class="btn btn-success"  asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
-                        </div>
+        {
+            <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-2 d-flex align-items-stretch">
+                <div class="card text-light my-2 " style="background-color: #55AD9B; width: 100%; max-width: 18rem;">
+                    <div class="m-1 d-flex justify-content-center">
+                        <img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" style="height: 10rem; width:18rem">
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-truncate" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="@product.Name">@product.Name</h5>
+                        <h6 class="card-text">@product.Price.ToString("c", currencyFormat)</h6>                       
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-success mt-auto" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
                     </div>
                 </div>
-            }
-
+            </div>
+        }
     </div>
+</div>
+
 
     <h2 class="mb-4" style="color: #55AD9B;">En sevilen Markalar</h2>
     <div class="row pb-5">
@@ -67,7 +72,7 @@
                     <div class="m-2"><img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px></div>
                     <div class="card-body" height=150px>
                                 <h5 class="card-title">@product.Name</h5>
-                                <p class="card-text">@product.Price ₺</p>
+                        <p class="card-text">@product.Price.ToString("c", currencyFormat)</p>
                         <a class="btn btn-success"  asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
                             </div>
                         </div>
@@ -88,7 +93,7 @@
                     <div class="m-2"><img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px></div>
                     <div class="card-body" height=150px>
                                 <h5 class="card-title">@product.Name</h5>
-                                <p class="card-text">@product.Price ₺</p>
+                        <p class="card-text">@product.Price.ToString("c", currencyFormat)</p>
                         <a class="btn btn-success"  asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
                             </div>
                         </div>
@@ -108,7 +113,7 @@
                     <div class="m-2"><img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px></div>
                     <div class="card-body" height=150px>
                             <h5 class="card-title">@product.Name</h5>
-                            <p class="card-text">@product.Price ₺</p>
+                        <p class="card-text">@product.Price.ToString("c", currencyFormat)</p>
                         <a class="btn btn-success" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
                         </div>
                     </div>
@@ -128,7 +133,7 @@
                     <div class="m-2"><img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px></div>
                     <div class="card-body" height=150px>
                         <h5 class="card-title">@product.Name</h5>
-                        <p class="card-text">@product.Price ₺</p>
+                        <p class="card-text">@product.Price.ToString("c", currencyFormat)</p>
                         <a class="btn btn-success" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
                     </div>
                 </div>
@@ -148,7 +153,7 @@
                     <div class="m-2"><img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px></div>
                     <div class="card-body" height=150px>
                         <h5 class="card-title">@product.Name</h5>
-                        <p class="card-text">@product.Price ₺</p>
+                        <p class="card-text">@product.Price.ToString("c", currencyFormat)</p>
                         <a class="btn btn-success" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
                     </div>
                 </div>
@@ -168,7 +173,7 @@
                     <div class="m-2"><img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px></div>
                     <div class="card-body" height=150px>
                         <h5 class="card-title">@product.Name</h5>
-                        <p class="card-text">@product.Price ₺</p>
+                        <p class="card-text">@product.Price.ToString("c", currencyFormat)</p>
                         <a class="btn btn-success" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">View Product</a>
                     </div>
                 </div>
@@ -178,3 +183,28 @@
     </div>
 
 </div>
+
+                    @*
+<div class="container">
+    <!-- Popular Products -->
+    <h2 class="mb-4" style="color: #55AD9B;">Popüler Ürünler</h2>
+    <div class="row pb-5">
+
+        @foreach (var product in mostPopularProducts)
+            {
+            <div class="col-2 " >
+                <div class="card mb-4 border-3 text-light" style="background-color: #55AD9B;">
+                    <div class="m-2"><img src="@product.PictureUrl" class="card-img-top" alt="@product.Name" width=150px height=150px></div>
+
+                    <div class="card-body" height=150px>
+                            <h5 class="card-title">@product.Name</h5>
+                        <h6 class="card-text">@product.Price.ToString("c", currencyFormat)</h6>
+                        <a class="btn btn-success"  asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">İncele</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+    </div>         *@
+                        
+                    
